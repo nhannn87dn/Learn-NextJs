@@ -39,6 +39,19 @@ npx create-next-app my-next-app
 yarn create next-app my-next-app
 ```
 
+Quá trình cài đặt sẽ có các bước:
+
+```html
+What is your project named? my-app
+Would you like to use TypeScript? No / Yes ==> Yes
+Would you like to use ESLint? No / Yes ==> Yes
+Would you like to use Tailwind CSS? No / Yes ==> Yes
+Would you like to use `src/` directory? No / Yes ==> No
+Would you like to use App Router? (recommended) No / Yes ==> Yes
+Would you like to customize the default import alias? No / Yes ==> Yes
+What import alias would you like configured? @/* ==> @/*
+```
+
 Lưu ý: Trong quá trình tạo dự án, bạn sẽ có cơ hội chọn giữa JavaScript và TypeScript. Hãy chọn TypeScript nếu bạn muốn sử dụng Next.js với TypeScript.
 
 Lệnh trên sẽ tạo một thư mục mới có tên "my-next-app
@@ -47,8 +60,11 @@ Lệnh trên sẽ tạo một thư mục mới có tên "my-next-app
 
 ```bash
 cd my-next-app
-npm run dev
-#yarn dev
+npm install #cài đặt packages với npm
+yarn #cài đặt packages với yarn
+#sau đó 
+npm run dev #start server với npm
+yarn dev #start server với yarn
 ```
 
 Sau khi máy chủ phát triển đã khởi chạy thành công, bạn có thể truy cập vào ứng dụng Next.js của mình bằng cách mở trình duyệt và truy cập địa chỉ http://localhost:3000.

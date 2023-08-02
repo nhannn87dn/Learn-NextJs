@@ -1,6 +1,26 @@
 # Component trong NextJs
 
-Trong phiên bản 13, sử dụng App Router Component được chia làm 2 loại:
+- Trong phiên bản 13, sử dụng App Router Component được chia làm 2 loại: Server Component và Client Component
+
+- NextJS theo App Router:  Server Component là mặc định
+- Để sử dụng Client Component: bạn thêm `use client` ở đầu file
+
+```js
+'use client'
+ 
+import { useState } from 'react'
+ 
+export default function Counter() {
+  const [count, setCount] = useState(0)
+ 
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  )
+}
+```
 
 ## 🎯 Server Component là gì ?
 
