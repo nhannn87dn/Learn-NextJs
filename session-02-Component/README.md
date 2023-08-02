@@ -36,4 +36,6 @@ Các ví dụ về client component bao gồm:
 * Ứng dụng di động giao tiếp với máy chủ backend để lấy dữ liệu hoặc thực hiện các thao tác thay mặt người dùng.
 * Ứng dụng trên máy tính kết nối với máy chủ từ xa để lấy dữ liệu hoặc thực hiện các tác vụ.
 
-Tóm lại, client component là một phần quan trọng của kiến trúc client-server, chịu trách nhiệm giao tiếp với máy chủ, cung cấp giao diện người dùng, xử lý dữ liệu và quản lý trạng thái.
+## 🎯 Khi nào thì dùng loại nào ?
+
+Xem trên doc của NextJS: <https://nextjs.org/docs/getting-started/react-essentials#when-to-use-server-and-client-components>

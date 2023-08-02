@@ -65,8 +65,5 @@ Doc: <https://nextjs.org/docs/getting-started/project-structure>
 - Follow xử lý trong NextJS thế nào ?
 
 
-## 🎯 Một số khái niệm cần nắm
-
-### 🔸 Static Site Generation là gì ?
-
-### 🔸 Incremental Static Regeneration là gì ?
+## 🎯 Một số lưu ý cần nắm
+Xem một số thay đổi trong NextJS 13: https://nextjs.org/docs/getting-started/react-essentials
