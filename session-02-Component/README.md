@@ -1,5 +1,8 @@
 # Component trong NextJs
 
+
+## 🎯 Tạo một Component NextJs 
+
 - Trong phiên bản 13, sử dụng App Router Component được chia làm 2 loại: Server Component và Client Component
 
 - NextJS theo App Router:  Server Component là mặc định
