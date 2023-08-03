@@ -165,3 +165,8 @@ Xem thêm:
 - https://nextjs.org/docs/app/building-your-application/optimizing/metadata
 
 - https://nextjs.org/docs/app/api-reference/functions/generate-metadata
+
+
+## 🎯 Cách tổ chức file, thư mục đúng Convention
+
+Xem chi tiết: <https://nextjs.org/docs/app/building-your-application/routing/colocation>

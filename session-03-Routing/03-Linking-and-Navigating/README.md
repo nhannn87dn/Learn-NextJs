@@ -94,3 +94,7 @@ export default function Page() {
 Cách này áp dụng khi bạn cần chuyển trang mà không phải do người dùng chọn. Ví dụ sau khi login thành công thì chuyển hướng đến dashboard
 
 Xem chi tiết cách sử dụng: <https://nextjs.org/docs/app/api-reference/functions/use-router>
+
+## Cách Routing và Navigation làm việc
+
+Chi tiết đọc: <https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#how-routing-and-navigation-works>
