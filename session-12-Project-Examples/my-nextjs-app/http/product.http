@@ -1,0 +1,11 @@
+GET http://localhost:3000/api/products
+
+###
+
+POST http://localhost:3000/api/products
+content-type: application/json
+
+{
+    "name": "sample",
+    "email": "jonh@gmail.com"
+}
