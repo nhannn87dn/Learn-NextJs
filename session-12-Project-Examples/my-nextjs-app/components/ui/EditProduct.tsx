@@ -1,7 +1,5 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useRouter, redirect } from "next/navigation";
-import { revalidatePath, revalidateTag } from "next/cache";
 
 interface ProductType {
   id: string;
@@ -20,7 +18,7 @@ interface UpdateFormState {
 }
 
 const EditProduct = ({ product }: { product: ProductType }) => {
-  const router = useRouter();
+  
 
   const [formState, setFormState] = useState<UpdateFormState>({
     name: product.name,
@@ -56,9 +54,9 @@ const EditProduct = ({ product }: { product: ProductType }) => {
 
       if (!response.ok) {
         throw new Error("Đã xảy ra lỗi khi cập nhật dữ liệu.");
-      } else {
-        revalidateTag("products-all");
       }
+      //Làm tươi data theo tag key
+     
 
       // Xử lý phản hồi thành công
       const updatedData = await response.json();

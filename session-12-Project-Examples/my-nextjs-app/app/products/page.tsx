@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 
 async function getData() {
-  const res = await fetch("https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products");
+  const res = await fetch("https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products",{ next: {revalidate: 5, tags: ['products-all'] }});
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 

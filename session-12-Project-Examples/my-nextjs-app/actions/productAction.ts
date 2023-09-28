@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 export async function updateProduct(formData: FormData) {
      
@@ -22,7 +22,7 @@ export async function updateProduct(formData: FormData) {
     
     console.log(response);
     //làm tươi lại dữ liệu
-    revalidatePath("products/edit/[id]", 'page');
+    revalidateTag('products-all');
 
     return {data: response, success: true, message: 'Update Success', error: null}
 

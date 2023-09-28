@@ -1,6 +1,6 @@
 // import type { Metadata, ResolvingMetadata } from "next";
 export const revalidate = 5; // revalidate at most 5 seconds
-import EditProduct from "@/components/ui/EditProduct";
+// import EditProduct from "@/components/ui/EditProduct";
 import EditProductMutation from "@/components/ui/EditProductMutation";
 
 type PageProps = {
@@ -23,7 +23,7 @@ interface ProductType {
 async function fetchProductByID(id: string){
   const product = await fetch(
     `https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products/${id}`, {
-      next: { revalidate: 5,tags: ['product-edit', id] },
+      next: { tags: ['product-edit', id] },
     }
   ).then((res) => res.json());
     return product;
@@ -62,7 +62,8 @@ export default async function Page({ params, searchParams }: PageProps) {
 
 export async function generateStaticParams() {
   const products: ProductType[] = await fetch(
-    "https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products"
+    "https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products",
+    { next: {tags: ['products-all'] }}
   ).then((res) => res.json());
 
   //Cắt ra chỉ build 10 link bài viết
