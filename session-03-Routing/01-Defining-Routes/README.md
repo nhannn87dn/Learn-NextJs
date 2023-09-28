@@ -1,5 +1,7 @@
 # Routing trong NextJS
 
+Xem code Mẫu: https://app-router.vercel.app/
+
 - Với NextJS bạn không phải cài đặt React Router nữa mà nó sử dụng file-system để tạo router. Mỗi folder trong app sẽ là các routes
 
 - Mặc định trong **app Folder** có một file **page.tsx** file này chính là trang chủ. page.tsx được hiểu là entry point của thư mục app
@@ -55,3 +57,7 @@ Kết luận: bạn muốn URL như thế nào thì trong folder app tạo thư 
 ## 🎯 Cách tổ chức file, thư mục đúng Convention
 
 Xem chi tiết: <https://nextjs.org/docs/app/building-your-application/routing/colocation>
+
+## 🎯 Links tham khảo
+
+- [Next.js 13: complete guide to Server Components and the App Directory](https://makerkit.dev/blog/tutorials/nextjs13)

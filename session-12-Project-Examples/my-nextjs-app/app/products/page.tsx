@@ -2,6 +2,8 @@ import Link from "next/link";
 
 import type { Metadata } from 'next'
  
+
+
 export const metadata: Metadata = {
   title: 'Products',
   description: 'Products desc'
@@ -10,9 +12,7 @@ export const metadata: Metadata = {
 
 
 async function getData() {
-  const res = await fetch("https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products", {
-    next: { revalidate: 30, tags: ['products'] },
-  });
+  const res = await fetch("https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products");
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 

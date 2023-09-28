@@ -24,7 +24,7 @@ export async function generateMetadata(
   // fetch data
   const product = await fetch(
     `https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products/${params.slug[1]}`, {
-      next: { revalidate: 60, tags: ['products-detail', params.slug[1]] },
+      next: { revalidate: 5, tags: ['product-detail', params.slug[1]] },
     }
   ).then((res) => res.json());
 
@@ -41,7 +41,7 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   const product = await fetch(
     `https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products/${params.slug[1]}`, {
-      next: { revalidate: 60, tags: ['products-detail', params.slug[1]] },
+      next: { revalidate: 5, tags: ['product-detail', params.slug[1]] },
     }
   ).then((res) => res.json());
 
@@ -50,8 +50,13 @@ export default async function Page({ params, searchParams }: PageProps) {
 
 export async function generateStaticParams() {
   const products: ProductType[] = await fetch(
-    "https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products"
+    "https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products",
+    {
+      next: {revalidate: 5, tags: ['products-all'] },
+    }
   ).then((res) => res.json());
+
+
 
   //Cắt ra chỉ build 10 link bài viết
   const newProducts = products.slice(0, 10);

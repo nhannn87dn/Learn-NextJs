@@ -1,5 +1,7 @@
 # Pages and Layout
 
+Xem code Mẫu: https://app-router.vercel.app/
+
 ## 🎯 Pages
 
 Trong React chúng ta hay dùng index.js/index.tsx để làm entry point cho thư mục Component

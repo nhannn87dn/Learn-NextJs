@@ -1,9 +1,7 @@
 // import type { Metadata, ResolvingMetadata } from "next";
-
-
-import EditProduct from "@/components/EditProduct";
-
-
+export const revalidate = 5; // revalidate at most 5 seconds
+import EditProduct from "@/components/ui/EditProduct";
+import EditProductMutation from "@/components/ui/EditProductMutation";
 
 type PageProps = {
   params: { id: string };
@@ -16,7 +14,7 @@ interface ProductType {
   price: string;
   desc: string;
   createdAt: string;
-  meterial: string;
+  material: string;
   catId: string;
   slug: string;
 }
@@ -25,7 +23,7 @@ interface ProductType {
 async function fetchProductByID(id: string){
   const product = await fetch(
     `https://64df2d7471c3335b2582313f.mockapi.io/api/v1/products/${id}`, {
-      next: { revalidate: 30, tags: ['products-detail',id] },
+      next: { revalidate: 5,tags: ['product-edit', id] },
     }
   ).then((res) => res.json());
     return product;
@@ -49,10 +47,15 @@ export default async function Page({ params, searchParams }: PageProps) {
 
  const product =  await fetchProductByID(params.id);
  
-
   return (
     <>
-      <EditProduct product={product} />
+    {/* 
+      Edit Product là một tính năng có sử dụng state, có fetch API
+      Do vậy bạn không thể để chúng trong page.tsx này vì nó là server components
+      Cách giải quyết là bạn tách nó ra thành một client component rồi nhúng vào trong một server component
+    */}
+      {/* <EditProduct product={product} /> */}
+      <EditProductMutation product={product}/>
     </>
   )
 }

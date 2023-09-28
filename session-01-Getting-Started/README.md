@@ -24,9 +24,13 @@ Next.js là một framework phát triển ứng dụng web phía máy chủ (ser
 
 8. Tối ưu hóa hiệu suất: Next.js tập trung vào việc tối ưu hiệu
 
-## Showcase
+## 🎯 Showcase
 
 Chi tiết: <https://nextjs.org/showcase>
+
+## Code Mẫu 
+
+https://app-router.vercel.app/
 
 ## 🎯 Cách cài đặt Next.js
 
@@ -83,3 +87,7 @@ Doc: <https://nextjs.org/docs/getting-started/project-structure>
 
 ## 🎯 Một số lưu ý cần nắm
 Xem một số thay đổi trong NextJS 13: https://nextjs.org/docs/getting-started/react-essentials
+
+## Links tham khảo
+
+- [Next.js 13: complete guide to Server Components and the App Directory](https://makerkit.dev/blog/tutorials/nextjs13)

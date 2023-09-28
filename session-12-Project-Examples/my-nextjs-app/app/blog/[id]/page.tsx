@@ -12,32 +12,56 @@ interface BlogType {
   body: string;
 }
 
-export async function generateMetadata(
-  { params, searchParams }: PageProps
-){
 
+/**
+ * Fetching Data on the Server 
+ * @param id number
+ * @returns object[]
+ */
+async function getData(id: number) {
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+ 
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+ 
+  return res.json()
+}
 
+/**
+ * generateMetadata
+ * Sinh ra title động cho route khi id thay đổi
+ */
+export async function generateMetadata({ params, searchParams }: PageProps) {
   // read route params
-  const id = params.id;
+  const id = parseInt (params.id);
 
   // fetch data
-  const post = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${id}`
-  ).then((res) => res.json());
+  const post = await getData(id);
 
   return {
     title: post.title,
   };
 }
 
+
+/**
+ * Hiển thị UI cho route
+ */
 export default async function Page({ params, searchParams }: PageProps) {
-  const post = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${params.id}`
-  ).then((res) => res.json());
+  const id = parseInt (params.id);
+  const post = await getData(id);
 
   return <div>My Post: {post.title}</div>;
 }
 
+/**
+ * Tạo ra danh sách đường dẫn động /blog/:id
+ * @returns object[]
+ */
 export async function generateStaticParams() {
   const posts: BlogType[] = await fetch(
     "https://jsonplaceholder.typicode.com/posts"
