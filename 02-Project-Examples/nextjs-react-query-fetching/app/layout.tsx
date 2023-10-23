@@ -1,7 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-
+import { Inter } from 'next/font/google';
+import QueryProvider from '../ui/QueryProvider';
+import Link from 'next/link';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -16,7 +17,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header className='bg-slate-200 py-5'>
+        <div className="container mx-auto">
+          <div className="navigation flex gap-x-5 ">
+
+            <Link href='/'>Home</Link>
+            <Link href='/products'>Products</Link>
+            <Link href='/products/add'>Add a Product</Link>
+          </div>
+        </div>
+        </header>
+       <main className='my-3'>
+        <div className="container mx-auto">
+          <QueryProvider>{children}</QueryProvider>
+        </div>
+
+       </main>
+        
+        </body>
     </html>
   )
 }

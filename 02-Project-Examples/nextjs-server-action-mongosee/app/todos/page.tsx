@@ -13,11 +13,11 @@ const Page = async () => {
         <ul>
             {
                 todos && todos.map((todo)=> {
-                    return <li key={todo._id}>{todo._id.toString()}-{todo.title}</li>
+                    return <li className="my-2" key={todo._id}>{todo._id.toString()}-{todo.title}</li>
                 })
             }
         </ul>
-        <Link href={'/todos/add'}>Thêm Todo</Link>
+        <Link className="bg-sky-500 py-2 px-3 text-white rounded" href={'/todos/add'}>Thêm Todo</Link>
     </div>
   )
 }

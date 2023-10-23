@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
 
-const connect = async () => {
+const connectDB = () => {
   try {
+
+    if(mongoose.connections[0].readyState){
+      console.log('Mongodb is ready connected');
+      return;
+    }
     
       /// Start the server
       const mongooseDbOptions = {
@@ -13,7 +18,7 @@ const connect = async () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       };
-    await mongoose.connect('mongodb://127.0.0.1:27017/TodosTest', mongooseDbOptions)
+    mongoose.connect('mongodb://127.0.0.1:27017/TodosTest', mongooseDbOptions)
 
   } catch (error) {
     console.log(error);
@@ -21,5 +26,5 @@ const connect = async () => {
   }
 };
 
-export default connect;
+export default connectDB;
 

@@ -1,19 +1,22 @@
-import mongoose from 'mongoose'
 
-export interface Todos extends mongoose.Document {
+import {Schema, model, models} from 'mongoose'
+
+interface ITodo{
   title: string
   done: boolean
 }
 
 /* TodoSchema will correspond to a collection in your MongoDB database. */
-const TodoSchema = new mongoose.Schema<Todos>({
+const TodoSchema = new Schema<ITodo>({
   title: {
     type: String,
     required: [true, 'Please provide a name for this Todo.'],
-    maxlength: [60, 'Name cannot be more than 60 characters'],
+    maxLength: [60, 'Name cannot be more than 60 characters'],
   },
   done: {
     type: Boolean,
+    enum: ['true', 'false'],
+    default: false
   }
 },
 {
@@ -22,4 +25,6 @@ const TodoSchema = new mongoose.Schema<Todos>({
 
 )
 
-export default mongoose.models.Todo || mongoose.model<Todos>('Todo', TodoSchema)
+const Todo = models.Todo || model<ITodo>('Todo', TodoSchema);
+
+export default Todo;

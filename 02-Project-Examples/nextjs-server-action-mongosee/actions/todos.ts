@@ -1,4 +1,5 @@
-import dbConnect from "@/db/dbConnect";
+"use server"
+import connectDB from "@/db/connectDB";
 import Todo from "@/models/Todo";
 import { revalidatePath } from 'next/cache';
 
@@ -8,18 +9,18 @@ type TodoRepository = {
     title: string
 }
 
-
+connectDB();
 
 export async function getTodos() {
     try {
-        await dbConnect();
+      
         const todos: TodoRepository[] = await Todo.find();
 
         console.log(todos);
       
-      return { todos };
+      return { ok: true,todos };
     } catch (error) {
-      return { error };
+      return { ok: false,error };
     }
   }
 
@@ -27,13 +28,13 @@ export async function createTodo(formData: FormData) {
 
     try {
       console.log(formData.get('title'));
-        await dbConnect();
+        // await connectDB();
         const todo = await Todo.create({
         title: formData.get('title')
        });
        revalidatePath('/todos')
-      return { todo };
+      return {ok: true, todo };
     } catch (error) {
-      return { error };
+      return { ok: false, error };
     }
   }
