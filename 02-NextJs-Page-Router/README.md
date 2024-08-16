@@ -47,27 +47,40 @@ Cụ thể xem: <https://nextjs.org/docs/getting-started/project-structure#pages
 
 Cách tổ chức cấu trúc theo page router sẽ như sau
 
-```html
-my-nextjs-app/ ├── pages/ # Thư mục bắt buộc │ ├── _app.tsx # Bắt buộc: Custom
-App component │ ├── _document.tsx # Tùy chọn: Custom Document component │ ├──
-_error.tsx # Tùy chọn: Custom Error Page │ ├── index.tsx # Bắt buộc: Trang chủ │
-├── 404.tsx # Tùy chọn: Trang 404 │ ├── 500.tsx # Tùy chọn: Trang 500 │ ├── api/
-# Tùy chọn: API routes │ │ └── hello.ts # Tùy chọn: Ví dụ API endpoint │ └──
-(tên-thư-mục)/ # Tùy chọn: Thư mục cho các routes con │ └── page.tsx # Bắt buộc
-nếu có route con ├── public/ # Tùy chọn: Tệp tĩnh như hình ảnh, favicon ├──
-styles/ # Tùy chọn: Tệp CSS cho ứng dụng │ └── globals.css # Tùy chọn: CSS toàn
-cục ├── components/ # Tùy chọn: Các thành phần React tái sử dụng ├── lib/ # Tùy
-chọn: Thư viện mã dùng chung ├── utils/ # Tùy chọn: Tiện ích và helper functions
-├── hooks/ # Tùy chọn: Custom React hooks ├── context/ # Tùy chọn: React context
-providers ├── package.json # Bắt buộc: Thông tin dự án và phụ thuộc ├──
-next.config.js # Tùy chọn: Cấu hình Next.js ├── tsconfig.json # Bắt buộc: Cấu
-hình TypeScript ├── next-env.d.ts # Bắt buộc: Khai báo TypeScript cho Next.js
-├── .eslintrc.json # Tùy chọn: Cấu hình ESLint ├── .gitignore # Tùy chọn: Tệp
-gitignore ├── .env # Tùy chọn: Biến môi trường ├── .env.local # Tùy chọn: Biến
-môi trường cục bộ ├── .env.production # Tùy chọn: Biến môi trường sản xuất ├──
-.env.development # Tùy chọn: Biến môi trường phát triển ├── middleware.ts # Tùy
-chọn: Middleware của Next.js ├── instrumentation.ts # Tùy chọn: OpenTelemetry và
-file instrumentation └── jsconfig.json # Tùy chọn: Cấu hình JavaScript
+```text
+my-nextjs-app/
+├── pages/                              # Thư mục bắt buộc
+│   ├── _app.tsx                        # Bắt buộc: Custom App component
+│   ├── _document.tsx                   # Tùy chọn: Custom Document component
+│   ├── _error.tsx                      # Tùy chọn: Custom Error Page
+│   ├── index.tsx                       # Bắt buộc: Trang chủ
+│   ├── 404.tsx                         # Tùy chọn: Trang 404
+│   ├── 500.tsx                         # Tùy chọn: Trang 500
+│   ├── api/                            # Tùy chọn: API routes
+│   │   └── hello.ts                    # Tùy chọn: Ví dụ API endpoint
+│   └── (tên-thư-mục)/                 # Tùy chọn: Thư mục cho các routes con
+│       └── page.tsx                    # Bắt buộc nếu có route con
+├── public/                             # Tùy chọn: Tệp tĩnh như hình ảnh, favicon
+├── styles/                             # Tùy chọn: Tệp CSS cho ứng dụng
+│   └── globals.css                     # Tùy chọn: CSS toàn cục
+├── components/                         # Tùy chọn: Các thành phần React tái sử dụng
+├── lib/                                # Tùy chọn: Thư viện mã dùng chung
+├── utils/                              # Tùy chọn: Tiện ích và helper functions
+├── hooks/                              # Tùy chọn: Custom React hooks
+├── context/                            # Tùy chọn: React context providers
+├── package.json                        # Bắt buộc: Thông tin dự án và phụ thuộc
+├── next.config.js                      # Tùy chọn: Cấu hình Next.js
+├── tsconfig.json                       # Bắt buộc: Cấu hình TypeScript
+├── next-env.d.ts                       # Bắt buộc: Khai báo TypeScript cho Next.js
+├── .eslintrc.json                      # Tùy chọn: Cấu hình ESLint
+├── .gitignore                          # Tùy chọn: Tệp gitignore
+├── .env                                # Tùy chọn: Biến môi trường
+├── .env.local                          # Tùy chọn: Biến môi trường cục bộ
+├── .env.production                     # Tùy chọn: Biến môi trường sản xuất
+├── .env.development                    # Tùy chọn: Biến môi trường phát triển
+├── middleware.ts                       # Tùy chọn: Middleware của Next.js
+├── instrumentation.ts                  # Tùy chọn: OpenTelemetry và file instrumentation
+└── jsconfig.json                       # Tùy chọn: Cấu hình JavaScript
 ```
 
 ## 🎯 Cách định nghĩa Routes
