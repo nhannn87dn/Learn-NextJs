@@ -93,15 +93,25 @@ Xem chi tiết: https://nextjs.org/docs/pages/building-your-application/routing/
 
 Ví dụ như bên dưới chúng ta có route trang chủ /
 
-```html
-src/ ├── pages/ │ ├── index.tsx (route: /) │ ├── _app.tsx │ ├── _document.tsx
+```txt
+src/
+├── pages/
+│ ├── index.tsx (route: /)
+│ ├── _app.tsx
+│ └── _document.tsx
+│
 ```
 
 Ví dụ để tạo thêm route `/blog` bạn cần tạo như sau:
 
-```html
-src/ ├── pages/ │ ├── index.tsx (route: /) │ ├── _app.tsx │ ├── _document.tsx │
-└── blog/ │ ├── index.tsx (route: /blog)
+```txt
+src/
+├── pages/
+│ ├── index.tsx (route: /)
+│ ├── _app.tsx
+│ ├── _document.tsx
+│ └── blog/
+│     ├── index.tsx (route: /blog)
 ```
 
 Để hiểu 1 thư mục là một segment thì bên trong folder phải có chứa file `index.tsx` hoặc `index.jsx`
@@ -120,9 +130,13 @@ export default function Blog() {
 
 Cấu trúc như sau:
 
-````html
-```html src/ ├── pages/ │ └── blog/ │ └── [slug] │ └── index.tsx
-````
+```txt
+src/
+├── pages/
+│ └── blog/
+│     └── [slug]
+│         └── index.tsx
+```
 
 Bạn sẽ nhận được tương ứng
 
@@ -146,10 +160,17 @@ Hay hiểu đơn giản nó có thể làm công việc backend, tạo ra hệ t
 
 Để định nghĩa 1 Resource API bạn sẽ phải khai báo bên trong `pages/api/`.
 
-```html
-src/ ├── pages/ │ ├── index.tsx (route: /) │ ├── _app.tsx │ ├── _document.tsx │
-├── api/ │ │ ├──users/ │ │ ├──index.ts (route: /api/users) │ │ ├── [id]/ │ │
-├──index.ts (route: /api/users/:id)
+```txt
+src/
+├── pages/
+│ ├── index.tsx (route: /)
+│ ├── _app.tsx
+│ ├── _document.tsx
+│ ├── api/
+│ │   ├──users/
+│ │     ├──index.ts (route: /api/users)
+│ │     └── [id]/
+│ │         └──index.ts (route: /api/users/:id)
 ```
 
 Trong đó `api/users/index.ts` như sau:
