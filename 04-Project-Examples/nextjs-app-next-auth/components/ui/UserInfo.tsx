@@ -15,9 +15,9 @@ const UserInfo = () => {
             user ? (
                 <>
                 <Link className="flex gap-x-2" href='/customers/profile'>
-                    {user.picture ? (
+                    {user.image ? (
                         <>
-                        <img className="rounded-full" height={30} width={30} src={user?.picture} alt={user?.name} />
+                        <img className="rounded-full" height={30} width={30} src={user?.image} alt={user?.name} />
                         </>
                     ) : null}  
                     <strong>{user?.name}</strong>

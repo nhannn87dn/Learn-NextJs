@@ -6,6 +6,7 @@ import Link from 'next/link'
 
 import { NextAuthProvider
 } from "@/components/providers/authProviders"
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {

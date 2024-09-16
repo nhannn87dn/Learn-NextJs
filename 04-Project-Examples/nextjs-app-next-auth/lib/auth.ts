@@ -1,12 +1,24 @@
-import type { NextAuthOptions } from "next-auth";
+import type { NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
+import { JWT } from "next-auth/jwt";
+import { AdapterUser } from "next-auth/adapters";
+
+interface UserType {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  accessToken: string;
+  refreshToken: string;
+}
 
 export const authOptions: NextAuthOptions = {
   debug: true,
   pages: {
     signIn: "/login", //Dẫn đến trang login custom
+    // error: "/auth/error", // Custom error page
   },
   session: {
     strategy: "jwt",
@@ -69,7 +81,7 @@ export const authOptions: NextAuthOptions = {
           if (!res.ok) {
             throw new Error("UnAuthorized");
           }
-          user = {...user, token: tokens.access_token, refreshToken: tokens.refresh_token};
+          user = {...user, accessToken: tokens.access_token, refreshToken: tokens.refresh_token};
           return user;
         }
 
@@ -79,12 +91,13 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account, profile, isNewUser }) {
-      console.log('callbacks jwt', token, user, account,profile,isNewUser);
-      if (account && user) {
+    
+    async jwt({ token, user} : { token: JWT; user: User }) {
+      console.log('callbacks jwt', token, user);
+      if (user) {
         return {
           ...token,
-          accessToken: user.token,
+          accessToken: user.accessToken,
           refreshToken: user.refreshToken,
         };
       }
@@ -92,14 +105,38 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
 
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       console.log('callbacks session', token);
-      if(token){
-        session.user.accessToken = token.accessToken;
-        session.user.refreshToken = token.refreshToken;
-        session.user.picture = token.picture;
-      }
+      // Create a user object with token properties
+      const userObject: AdapterUser = {
+        id: token.id,
+        avatar: token.avatar,
+        name: token.name,
+        accessToken: token.accessToken,
+        refreshToken: token.refreshToken,
+        email: token.email ? token.email : "", // Ensure email is not undefined
+        emailVerified: null, // Required property, set to null if not used
+      };
+
+      // Add the user object to the session
+      session.user = userObject;
       return session;
     },
   },
 };
+
+
+
+declare module "next-auth" {
+  interface User extends UserType {}
+}
+
+declare module "next-auth" {
+  interface Session {
+    accessToken?: string
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT extends UserType {}
+}
