@@ -1,4 +1,5 @@
 import Link from "next/link";
+import UserArea from "../UserArea";
 
 const Header = () => {
   return (
@@ -19,6 +20,9 @@ const Header = () => {
               </li>
               <li>
                 <Link href={"/customers"}>Customers</Link>
+              </li>
+              <li>
+                <UserArea />
               </li>
             </ul>
           </nav>
