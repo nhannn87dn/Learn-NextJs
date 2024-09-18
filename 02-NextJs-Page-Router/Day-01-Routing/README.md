@@ -1,6 +1,6 @@
 # Learn NextJs - Page Router
 
-## 🎯 Cách cài đặt Next.tsx
+## 🎯 Cách cài đặt NextJS
 
 Để bắt đầu với Next.tsx, chúng ta cần cài đặt Node.tsx và npm trên máy tính của mình. Sau đó, có thể sử dụng lệnh sau để tạo một dự án Next.tsx mới:
 
@@ -328,3 +328,16 @@ export default function MyApp({ Component, pageProps }) {
 ### 🔸 Layout riêng cho từng page
 
 Xem chi tiết: https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts#per-page-layouts
+
+
+## 🎯 Middleware
+
+Xem doc: https://nextjs.org/docs/pages/building-your-application/routing/middleware
+
+## 🎯 Custom App
+
+Xem doc: https://nextjs.org/docs/pages/building-your-application/routing/custom-app
+
+## 🎯 Custom Document
+
+Xem doc: https://nextjs.org/docs/pages/building-your-application/routing/custom-document
