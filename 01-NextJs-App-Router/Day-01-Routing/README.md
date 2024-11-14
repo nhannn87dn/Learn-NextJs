@@ -463,12 +463,3 @@ The rendered output of a route segment with a layout and a template will be as s
   <Template key={routeParam}>{children}</Template>
 </Layout>
 ```
-
-## 🎯 Loading UI
-
-Xem doc: https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming
-
-
-## 🎯 Middleware
-
-Xem doc: https://nextjs.org/docs/app/building-your-application/routing/middleware
