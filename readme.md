@@ -1,20 +1,10 @@
-# NextJs Tutorial
+# Nextjs Learn
 
-Tài liệu biên soạn theo NextJs App Router
+## Components
 
-- Doc: <https://nextjs.org/docs>
-
-- Change logs: <https://nextjs.org/blog>
-
-- Carousel cho NextJS: <https://www.embla-carousel.com/examples/predefined>
-
-## Link tham khảo
-
-https://sohamr.hashnode.dev/nextjs-13-everything-you-need-to-know
-
-
-
-## Dự án tham khảo
-
-- https://github.com/vercel/commerce
-
+Trong nextjs nó có 2 loại component:
+- Server component (Mặc định)
+    - là gì: Render phía máy chủ server
+- Client component
+    - là gì: Render phía Browser
+    - sử dụng: 'use client' trên đầu component
