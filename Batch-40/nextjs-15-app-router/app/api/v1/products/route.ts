@@ -1,5 +1,5 @@
 //GET ALL PRODUCTS
-export async function GET(request: Request) {
+export async function GET() {
     const data = [
         { id: 1, name: "Product 1" },
         { id: 2, name: "Product 2" },

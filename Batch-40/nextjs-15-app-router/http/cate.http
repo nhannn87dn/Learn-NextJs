@@ -1,0 +1,16 @@
+PUT https://api.escuelajs.co/api/v1/categories/1
+Content-Type: application/json
+
+{
+  "name": "Updated Category Name v2"
+}
+###
+PUT https://api.escuelajs.co/api/v1/products/73
+Content-Type: application/json
+
+{
+  "price": 100
+}
+
+###
+GET https://api.escuelajs.co/api/v1/products
