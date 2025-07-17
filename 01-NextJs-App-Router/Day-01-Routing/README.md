@@ -1,465 +1,219 @@
-# Learn NextJs - App Router
+# Getting Started và Installation trong Next.js 15
 
-## 🎯 Cách cài đặt Next.js
+## 1. Giới thiệu về Next.js
 
-Doc: <https://nextjs.org/docs/getting-started/installation>
+### 1.1. Next.js là gì?
+Next.js là một framework mạnh mẽ được xây dựng trên nền React, cung cấp các tính năng mở rộng để phát triển các ứng dụng web hiện đại, hiệu suất cao, và thân thiện với SEO. Next.js 15 là phiên bản mới nhất (tính đến tháng 7/2025), mang đến các cải tiến về hiệu suất, tích hợp Server Components, và khả năng tối ưu hóa vượt trội.
 
-Để bắt đầu với Next.js, chúng ta cần cài đặt Node.js và npm trên máy tính của mình. Sau đó, có thể sử dụng lệnh sau để tạo một dự án Next.js mới:
+### 1.2. Tại sao Next.js vượt trội hơn React thuần?
+React thuần là một thư viện giao diện người dùng (UI library) mạnh mẽ, nhưng nó chỉ tập trung vào việc xây dựng các thành phần giao diện (components) và quản lý trạng thái phía client. Next.js, ngược lại, là một framework hoàn chỉnh, cung cấp các tính năng bổ sung giúp đơn giản hóa và tối ưu hóa quá trình phát triển. Dưới đây là những điểm nổi bật của Next.js so với React thuần:
+
+- **Server-Side Rendering (SSR), Static Site Generation (SSG) và Incremental Static Regeneration (ISR)**:  
+  Next.js hỗ trợ render phía server và tạo trang tĩnh tại thời điểm build, cải thiện hiệu suất và SEO. React thuần yêu cầu thêm các thư viện như `react-dom/server` và cấu hình phức tạp để đạt được điều này.
+
+- **Tích hợp sẵn các tính năng tối ưu hóa**:  
+  Next.js cung cấp các công cụ như `<Image>` component để tối ưu hóa hình ảnh, `next/font` để tối ưu hóa font, và hệ thống cache thông minh (Data Cache, Full Route Cache), trong khi React thuần không có các tính năng này và cần tích hợp thêm thư viện bên thứ ba.
+
+- **Hệ thống định tuyến tự động (App Router)**:  
+  Next.js sử dụng cấu trúc thư mục trong `app/` để tự động tạo các route, không cần cấu hình thủ công như trong React với `react-router-dom`.
+
+- **Hỗ trợ Server Components**:  
+  Next.js 15 giới thiệu React Server Components, cho phép render các thành phần phía server, giảm tải JavaScript gửi đến client, cải thiện hiệu suất và trải nghiệm người dùng. React thuần không có tính năng này.
+
+- **Tích hợp API Routes**:  
+  Next.js cho phép tạo các API endpoint ngay trong dự án (`app/api/`), giúp xây dựng backend nhẹ mà không cần server riêng. React thuần yêu cầu một backend độc lập (như Node.js/Express).
+
+- **Triển khai dễ dàng**:  
+  Next.js được tối ưu hóa cho các nền tảng như Vercel, cung cấp triển khai nhanh chóng và tích hợp CI/CD. React thuần cần cấu hình thêm để triển khai trên các nền tảng tương tự.
+
+- **Hỗ trợ SEO và OG Images**:  
+  Next.js cung cấp các công cụ tích hợp để cấu hình metadata và OG images, giúp tối ưu hóa SEO mà không cần thư viện bổ sung như `react-helmet` trong React.
+
+### 1.3. Các ứng dụng thực tiễn của Next.js
+Next.js được sử dụng rộng rãi trong nhiều loại ứng dụng nhờ tính linh hoạt và hiệu suất cao:
+
+- **Website thương mại điện tử**:  
+  Next.js lý tưởng cho các trang như Shopee, Lazada, nhờ khả năng SSR và SSG để hiển thị sản phẩm nhanh chóng, hỗ trợ SEO, và tích hợp API Routes để xử lý giỏ hàng.
+
+- **Blog và trang nội dung**:  
+  Các trang như Medium, Hashnode sử dụng Next.js để tạo các blog tĩnh với SSG, giúp tải nhanh và tối ưu SEO.
+
+- **Ứng dụng doanh nghiệp**:  
+  Next.js phù hợp cho các dashboard quản lý hoặc ứng dụng nội bộ nhờ Server Components và khả năng xử lý dữ liệu phía server.
+
+- **Ứng dụng thời gian thực**:  
+  Kết hợp với WebSocket hoặc API Routes, Next.js có thể xây dựng các ứng dụng như chat, bảng điều khiển tài chính.
+
+- **Landing pages và trang marketing**:  
+  Nhờ tích hợp `<Image>`, `next/font`, và metadata, Next.js là lựa chọn hoàn hảo cho các trang quảng cáo cần tải nhanh và tối ưu hóa SEO.
+
+- **Ứng dụng quốc tế hóa (i18n)**:  
+  Next.js hỗ trợ sẵn i18n routing, phù hợp cho các ứng dụng đa ngôn 
+ngôn ngữ như các trang web toàn cầu.
+
+### 1.4. Khi nào nên chọn Next.js?
+- Nếu bạn cần một ứng dụng web **tải nhanh**, **thân thiện với SEO**, và **dễ bảo trì**, Next.js là lựa chọn vượt trội.
+- Nếu dự án của bạn chỉ cần một giao diện đơn giản, không cần SEO hoặc render phía server, React thuần có thể đủ. Tuy nhiên, với các dự án thực tế, Next.js thường tiết kiệm thời gian và công sức hơn nhờ các tính năng tích hợp.
+
+---
+
+## 2. Getting Started với Next.js 15
+
+### 2.1. Yêu cầu hệ thống
+Để bắt đầu với Next.js 15, bạn cần:
+- **Node.js**: Phiên bản 18.17 trở lên (khuyến nghị sử dụng phiên bản LTS mới nhất).
+- **npm** hoặc **yarn** (hoặc **pnpm** nếu bạn thích).
+- Một trình soạn thảo mã nguồn như VS Code.
+- Kết nối internet để tải các gói phụ thuộc.
+
+### 2.2. Cài đặt Next.js
+Next.js cung cấp công cụ `create-next-app` để nhanh chóng thiết lập một dự án mới với cấu hình mặc định.
+
+#### Bước 1: Tạo dự án mới
+Mở terminal và chạy lệnh sau:
 
 ```bash
-npx create-next-app my-next-app
-yarn create next-app my-next-app
+npx create-next-app@latest
 ```
 
-Quá trình cài đặt sẽ có các bước:
+Bạn sẽ được hỏi một số câu hỏi để cấu hình dự án:
 
-```html
-What is your project named? my-app Would you like to use TypeScript? No / Yes
-==> Yes Would you like to use ESLint? No / Yes ==> Yes Would you like to use
-Tailwind CSS? No / Yes ==> Yes Would you like to use `src/` directory? No / Yes
-==> No Would you like to use App Router? (recommended) No / Yes ==> Yes Would
-you like to customize the default import alias? No / Yes ==> Yes What import
-alias would you like configured? @/* ==> @/*
+```
+What is your project named? my-app
+Would you like to use TypeScript? No / Yes
+Would you like to use ESLint? No / Yes
+Would you like to use Tailwind CSS? No / Yes
+Would you like your code inside a `src/` directory? No / Yes
+Would you like to use App Router? (recommended) No / Yes
+Would you like to use Turbopack for `next dev`?  No / Yes
+Would you like to customize the import alias (`@/*` by default)? No / Yes
+What import alias would you like configured? @/*
 ```
 
-Lưu ý: Trong quá trình tạo dự án, bạn sẽ có cơ hội chọn giữa JavaScript và TypeScript. Hãy chọn TypeScript nếu bạn muốn sử dụng Next.js với TypeScript.
-
-Lệnh trên sẽ tạo một thư mục mới có tên "my-next-app
-
-" và cài đặt các phụ thuộc cần thiết cho dự án Next.js. Bạn có thể điều hướng vào thư mục dự án và chạy lệnh sau để khởi chạy máy chủ phát triển:
-
+#### Bước 2: Di chuyển vào thư mục dự án
 ```bash
 cd my-next-app
-npm install #cài đặt packages với npm
-yarn #cài đặt packages với yarn
-#sau đó
-npm run dev #start server với npm
-yarn dev #start server với yarn
 ```
 
-Sau khi máy chủ phát triển đã khởi chạy thành công, bạn có thể truy cập vào ứng dụng Next.js của mình bằng cách mở trình duyệt và truy cập địa chỉ http://localhost:3000.
-
----
-
-## 🎯 Cấu trúc dự án
-
-Bạn cần tuân thủ theo cách tổ chức project: cấu trúc thư mục, cặt đặt tên thư mục, file như Nextjs đã khuyến nghị.
-
-```text
-my-nextjs-app/
-├── app/                                # Thư mục bắt buộc
-│   ├── layout.tsx                      # Bắt buộc: Cấu trúc layout cho các trang
-│   ├── page.tsx                        # Bắt buộc: Trang chính (route gốc)
-│   ├── loading.tsx                     # Tùy chọn: Hiển thị khi trang đang tải
-│   ├── error.tsx                       # Tùy chọn: Xử lý và hiển thị lỗi
-│   ├── global-error.tsx                # Tùy chọn: Global error UI
-│   ├── not-found.tsx                   # Tùy chọn: Trang 404
-│   ├── route.tsx                       # Tùy chọn: API endpoint
-│   ├── template.tsx                    # Tùy chọn: Re-rendered layout
-│   ├── default.tsx                     # Tùy chọn: Parallel route fallback page
-│   ├── favicon.ico                     # Tùy chọn: Favicon file
-│   ├── icon.png                        # Tùy chọn: App Icon file
-│   ├── apple-icon.png                  # Tùy chọn: Apple App Icon file
-│   ├── opengraph-image.png             # Tùy chọn: Open Graph image file
-│   ├── twitter-image.png               # Tùy chọn: Twitter image file
-│   ├── sitemap.xml                     # Tùy chọn: Sitemap file
-│   ├── robots.txt                      # Tùy chọn: Robots file
-│   └── (tên-thư-mục)/                 # Tùy chọn: Thư mục cho các routes con
-│       ├── page.tsx                    # Bắt buộc nếu có route con
-│       ├── layout.tsx                  # Tùy chọn: Layout riêng cho route con
-│       ├── loading.tsx                 # Tùy chọn
-│       ├── error.tsx                   # Tùy chọn
-│       ├── not-found.tsx               # Tùy chọn
-│       ├── global-error.tsx            # Tùy chọn: Global error UI
-│       ├── not-found.tsx               # Tùy chọn: Trang 404
-│       ├── route.tsx                   # Tùy chọn: API endpoint
-│       ├── template.tsx                # Tùy chọn: Re-rendered layout
-│       └── default.tsx                 # Tùy chọn: Parallel route fallback page
-├── public/                             # Tùy chọn: Tệp tĩnh như hình ảnh, favicon
-├── styles/                             # Tùy chọn: Tệp CSS cho ứng dụng
-│   └── globals.css                     # Tùy chọn: CSS toàn cục
-├── components/                         # Tùy chọn: Các thành phần React tái sử dụng
-├── package.json                        # Bắt buộc: Thông tin dự án và phụ thuộc
-├── next.config.js                      # Tùy chọn: Cấu hình Next.js
-├── tsconfig.json                       # Bắt buộc: Cấu hình TypeScript
-├── next-env.d.ts                       # Bắt buộc: Khai báo TypeScript cho Next.js
-├── .eslintrc.json                      # Tùy chọn: Cấu hình ESLint
-├── .gitignore                          # Tùy chọn: Tệp gitignore
-├── .env                                # Tùy chọn: Biến môi trường
-├── .env.local                          # Tùy chọn: Biến môi trường cục bộ
-├── .env.production                     # Tùy chọn: Biến môi trường sản xuất
-├── .env.development                    # Tùy chọn: Biến môi trường phát triển
-├── middleware.ts                       # Tùy chọn: Middleware của Next.js
-├── instrumentation.ts                  # Tùy chọn: OpenTelemetry và file instrumentation
-└── jsconfig.json                       # Tùy chọn: Cấu hình JavaScript
+#### Bước 3: Chạy ứng dụng
+```bash
+npm run dev
 ```
 
-Cụ thể xem: <https://nextjs.org/docs/getting-started/project-structure>
+Mở trình duyệt và truy cập `http://localhost:3000`. Bạn sẽ thấy trang chào mừng mặc định của Next.js.
 
----
+### 2.3. Cấu trúc dự án cơ bản
+Sau khi tạo dự án, cấu trúc thư mục sẽ như sau:
 
-## 🎯 Hiển thị Hello World với NextJs
-
-- Giải thích cách hoạt động của NextJs với App Router
-
-- Thử tạo một component HelloWord xem NextJS có khác gì ReactJS không?
-
-- Follow xử lý trong NextJS thế nào ?
-
----
-
-## 🎯 Cách định nghĩa Routes
-
-Xem chi tiết: https://nextjs.org/docs/app/building-your-application/routing/defining-routes
-
-### 💥 Static Route - Đường dẫn tĩnh
-
-Cách tạo routes thông qua hình họa sau:
-
-![routes](img/defining-routes.avif)
-
-Bạn muốn có một URL: `/dashboard`: thì trong folder app bạn tạo một folder dashboard, và trong folder dashboard tạo tiếp một file `pages.tsx`
-
-```code
-├── app 
-│ ├── dashboard 
-│ │     ├── page.tsx 
-│ ├── page.tsx
+```
+my-next-app/
+├── app/
+│   ├── layout.tsx       # Root layout cho toàn bộ ứng dụng
+│   ├── page.tsx         # Trang chủ (route "/")
+│   ├── globals.css     # CSS toàn cục
+├── public/             # Tài nguyên tĩnh (hình ảnh, favicon, etc.)
+├── next.config.ts      # Cấu hình Next.js
+├── package.json        # Quản lý phụ thuộc
 ```
 
-**app/dashboard/page.tsx** có nội dung như sau:
+- **app/**: Chứa các route, layout, và logic chính của ứng dụng (App Router).
+- **public/**: Lưu trữ các tệp tĩnh như hình ảnh, được phục vụ tại `/`.
+- **next.config.ts**: Tùy chỉnh cấu hình như cache, middleware, hoặc i18n.
 
-```js
-export default function Page() {
-  return <h1>Hello, Dashboard Page!</h1>;
-}
-```
+### 2.4. Thử nghiệm đầu tiên
+Hãy chỉnh sửa `app/page.ts` để tạo trang chủ tùy chỉnh:
 
-Lưu ý: Bạn có thể đổi tên `Page` thành tên khác để phân biệt nếu muốn.
-
-![router](img/router-defined.png)
-
-Bạn muốn có một URL: `/dashboard/settings` thì trong folder dashboard bạn tạo một folder settings, và trong folder settings tạo tiếp một file `page.tsx`
-
-```code
-├── app 
-│ ├── dashboard 
-│ │     ├── page.tsx 
-│ │     ├── settings 
-│ │     │      ├── page.tsx 
-│ ├── page.tsx
-```
-
-Kết luận:
-
-- bạn muốn URL như thế nào thì trong folder app tạo thư mục tương ứng với cấu trúc của URL
-- folder đó được hiểu là route khi và chỉ khi nó chứa file `page.tsx`
-
-### 💥 Route Groups
-
-Là cách tổ chức cấu trúc route nhưng không phát sinh `segment` (URL).
-
-Giúp bạn phân vùng quản lý các routes có tính năng liên quan lại một nhóm.
-
-![route-groups](img/route-groups.png)
-
-Tổ chức folder trong cặp ngoặc tròn `)marketing)`
-
-Xem chi tiết: https://nextjs.org/docs/app/building-your-application/routing/route-groups
-
-### 💥 Dynamic Routes
-
-Để tạo một `Dynamic routes` bạn tạo folder và đặt tên trong cặp nguộc vuông. Ví dụ: `[id]`, `[slug]`
-
-Cấu trúc như sau:
-
-```code
-app 
-├── blog 
-│     ├── [slug] 
-│     ├── page.tsx 
-├── layout.jsx 
-|── page.tsx
-```
-
-Bạn sẽ nhận được tương ứng
-
-| URL     | Params        |
-| ------- | ------------- |
-| /blog/a | { slug: 'a' } |
-| /blog/b | { slug: 'b' } |
-| /blog/c | { slug: 'c' } |
-
-`slug` được là param và giá trị của nó biến động theo phần `segment` phía sau `/blog/` khi bạn truyền lên URL.
-
-Xem chi tiết: https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
-
-### 💥 Route Handlers
-
-Route Handlers cho phép bạn tạo ra request và response API.
-
-Hay hiểu đơn giản nó có thể làm công việc backend, tạo ra hệ thống RESTFUL API như NodeJs và ExpressJs
-
-#### Định nghĩa một Resource API
-
-```code
-app 
-├── api 
-│ ├── users 
-│     ├── route.ts 
-├── layout.jsx 
-|── page.tsx
-```
-
-Đơn giản, chỉ cần bạn tạo một folder bên trong app và đặt vào đó một file có tên `route.ts` thì NextJS hiểu đó là một Route handler
-
-Ví dụ về một resource API Users
-
-```code
-app 
-├── api 
-│ ├── users 
-│ │     ├── [id] 
-│ │     │     ├── route.ts 
-│       ├── route.ts 
-├── layout.jsx 
-|── page.tsx
-```
-
-Trong đó `api/users/route.ts` như sau:
-
-```ts
-const users = [
-  { id: 1, name: "David" },
-  { id: 2, name: "Tom" },
-];
-//GET api/users
-export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const query = searchParams.get("query");
-  // query is "Tom" for /api/users?name=Tom
-
-  /**
-   * Ở đây bạn có thể liên kết trược tiếp với Dababase
-   * Hoặc có thể gọi API
-   *  */
-
-  //getAll
-  return Response.json(users);
-}
-
-//POST api/users
-
-export async function POST(request: Request) {
-  const body = await request.json();
-  return Response.json(body);
-}
-```
-
-Trong đó `api/users/[id]/route.ts` như sau:
-
-```ts
-const users = [
-  { id: 1, name: "David" },
-  { id: 2, name: "Tom" },
-];
-//GET api/users/:id
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-  const id = params.id;
-  console.log("API users/:id", id);
-  /**
-   * Ở đây bạn có thể liên kết trược tiếp với Dababase
-   * Hoặc có thể gọi API
-   *  */
-  //getById
-  if (id) {
-    const user = users.find((u) => u.id == parseInt(id));
-    return Response.json(user);
-  }
-  return Response.json({
-    message: "ID not undefined",
-  });
-}
-
-//PUT api/users/:id
-export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
-) {}
-
-//DELETE api/users/:id
-export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
-) {}
-```
-
-Bạn có thể tìm thấy tất cả vấn đề liên quan tại: https://nextjs.org/docs/app/building-your-application/routing/route-handlers
-
----
-
-## 🎯 Pages
-
-Trong NextJS (App Router) `page.tsx` được xem như là EntryPoint
-
-- page chấp nhận kiểu mở rộng .js, .jsx, .tsx
-- page mặc định là **Server Components** nhưng bạn có thể chuyển qua Client Components
-- pages có thể fetch data để lấy thông tin qua API
-
-Xem chi tiết: https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#pages
-
----
-
-## 🎯 Link và Navigation
-
-Có 2 cách để chuyển hướng giữa các routes trong NextJS:
-
-- Sử dụng `<Link>` Component
-- Sử dụng `useRouter` hook (Client Components)
-- Sử dụng `redirect` function (Server Components)
-- Sử dụng native History API
-
-### 💥 Link
-
-Ví dụ:
-
-```tsx
-/* app/page.tsx */
-import Link from "next/link";
-
-export default function Page() {
-  return <Link href="/dashboard">Dashboard</Link>;
-}
-```
-
-Xem chi tiết: https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#link-component
-
-### 💥 useRouter() Hook
-
-Hook này chỉ cho phép sử dụng trong Client Components
-
-```js
-"use client";
-
-import { useRouter } from "next/navigation";
-
-export default function Page() {
-  const router = useRouter();
-
+```javascript
+// app/page.tsx
+export default function Home() {
   return (
-    <button type="button" onClick={() => router.push("/dashboard")}>
-      Dashboard
-    </button>
+    <div>
+      <h1>Chào mừng đến với Next.js 15!</h1>
+      <p>Đây là ứng dụng đầu tiên của bạn.</p>
+    </div>
   );
 }
 ```
 
-Xem chi tiết: https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#userouter-hook
-
-### 💥 redirect function
-
-Hàm này này chỉ cho phép sử dụng trong Server Components
-
-```tsx
-import { redirect } from "next/navigation";
-
-async function fetchTeam(id: string) {
-  const res = await fetch("https://...");
-  if (!res.ok) return undefined;
-  return res.json();
-}
-
-export default async function Profile({ params }: { params: { id: string } }) {
-  const team = await fetchTeam(params.id);
-  if (!team) {
-    redirect("/login");
-  }
-
-  // ...
-}
-```
-
-Xem chi tiết: https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#redirect-function
-
-### 💥 native History API
-
-Xem chi tiết: https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#using-the-native-history-api
+Lưu tệp, và trang sẽ tự động cập nhật nhờ tính năng **Hot Module Replacement** (HMR) của Next.js.
 
 ---
 
-Xem thêm chuyển hướng tại:
+## 3. Cấu trúc dự án
 
-- https://nextjs.org/docs/app/building-your-application/routing/redirecting
+Khi bạn tạo một dự án Next.js 15 bằng lệnh npx create-next-app@latest, cấu trúc thư mục mặc định sẽ trông như sau:
+
+
+```
+my-next-app/
+├── app/
+│   ├── layout.js         # Root layout cho toàn bộ ứng dụng
+│   ├── page.js           # Trang mặc định cho route "/"
+│   ├── globals.css       # File CSS toàn cục
+│   ├── favicon.ico       # Icon của ứng dụng
+├── public/               # Thư mục chứa tài nguyên tĩnh
+│   ├── images/           # Hình ảnh tĩnh
+│   ├── favicon.ico       # Icon mặc định
+├── .next/                # Thư mục build (tạo tự động, không chỉnh sửa)
+├── node_modules/         # Các phụ thuộc của dự án
+├── next.config.js        # File cấu hình Next.js
+├── package.json          # Quản lý phụ thuộc và script
+├── README.md             # Tài liệu dự án
+```
+
+Chi tiết xem: https://nextjs.org/docs/app/getting-started/project-structure
 
 ---
 
-## 🎯 Layouts
+## 4. Layouts và Pages
 
-### 🔸 Định nghĩa 1 layout
+### 4.1 Pages
 
-Trong NextJS (app router) bạn muốn trang nào có layout riêng thì trong folder route bạn tạo một file `layout.tsx`
+Xem chi tiết: https://nextjs.org/docs/app/api-reference/file-conventions/page
 
-Ví dụ bạn muốn /dashboard có layout khác đi
+#### 4.1.1 Static Page
 
-![layout](img/layout-special-file.avif)
+Xem tại: https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-page
 
-Trong folder dashboard tạo file layout.tsx, layout này sẽ dùng chung cho tất cả các URL bắt đầu là /dashboard/ Ví dụ: /dashboard/settings, /dashboard/products...
+#### 4.1.2 Dynamic Page
 
-Còn không nó lấy `layout.tsx` ở `app/layout.tsx` làm layout chung cho toàn bộ trang. Cài này gọi là `Root Layout`
+Xem tại: https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-dynamic-segment
 
-Và lưu ý răng component trong layout.tsx nên để một children prop để nó có thể hiển thị thành phần con
+#### 4.2.3 Handing Route Data
 
-```js
-export default function DashboardLayout({
-  children, // will be a page or nested layout
-}: {
-  children: React.ReactNode,
-}) {
-  return (
-    <section>
-      {/* Include shared UI here e.g. a header or sidebar */}
-      <nav></nav>
+- Dynamic segments: https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-dynamic-segment
+- Search Params: https://nextjs.org/docs/app/getting-started/layouts-and-pages#rendering-with-search-params
 
-      {children}
-    </section>
-  );
-}
-```
+#### 4.1.4 Chủ đề liên quan
 
-### 🔸 Lưu ý với layout
+- Route Groups: https://nextjs.org/docs/app/api-reference/file-conventions/route-groups
+-Route Segment Config: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
 
-- layout chấp nhận kiểu mở rộng .js, .jsx, .tsx
-- layout mặc định là **Server Components** nhưng bạn có thể chuyển qua Client Components
-- layout có thể fetch data để lấy thông tin qua API
-- Bạn không thể share data giữa layout cha và con, tuy nhiên bạn có thể fetch data giống nhau 1 hoặc nhiều lần, React sẽ tự động loại bỏ những yêu cầu để không ảnh hưởng đến hiệu suất
--
+---
 
-### 🔸 Templates
+### 4.2 Layouts
 
-Templates cũng giống như layouts để wrap các layout con hoặc page. Không giống như Layout, Templates sẽ re-render lại mỗi khi bạn chuyển hướng
+Xem chi tiết: https://nextjs.org/docs/app/api-reference/file-conventions/layout
 
-Khuyến nghị: sử dụng layouts thay vì templates trừ khi bạn có lí do để sử dụng template
+### 4.2.1 Root Layouts
 
-Cách để định nghĩa ra một template thì tương tự như layout
+Xem tại: https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-layout
 
-![template](img/template-special-file.avif)
+### 4.2.1 Nesting layouts
 
-app/template.tsx
+Xem tại: https://nextjs.org/docs/app/getting-started/layouts-and-pages#nesting-layouts
 
-```js
-export default function Template({ children }: { children: React.ReactNode }) {
-  return <div>{children}</div>;
-}
-```
+### 4.2.3 Multi Root layouts
 
-The rendered output of a route segment with a layout and a template will be as such:
+Xem tại: 
 
-```js
-<Layout>
-  {/* Note that the template is given a unique key. */}
-  <Template key={routeParam}>{children}</Template>
-</Layout>
-```
+- https://nextjs.org/docs/app/api-reference/file-conventions/route-groups
+- https://nextjs.org/docs/app/api-reference/file-conventions/layout#root-layout
+
+## 5. Linking and Navigating
+
+Xem tại: https://nextjs.org/docs/app/getting-started/linking-and-navigating
+
+## 6. Route Handlers
+
+Xem tại: https://nextjs.org/docs/app/getting-started/route-handlers-and-middleware#route-handlers

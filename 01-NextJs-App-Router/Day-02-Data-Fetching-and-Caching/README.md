@@ -1,10 +1,10 @@
-# Data Fetching
+# Data Fetching and Caching
 
 Học cách để Fetch API lấy dữ liệu trong Next App Route
 
+## 🎯 1. Server and Client Components
 
-
-## 🎯 Renderding
+### 1.1 Phân loại Component
 
 Components trong NextJs được chia thành 2 loại:
 
@@ -12,7 +12,6 @@ Components trong NextJs được chia thành 2 loại:
 - `Client Components`:  Render UI phía trình duyệt client
 
 Đơn giản bạn phân biệt 2 loại trên khi thử `console.log` ở mỗi loại.
-
 
 Ví dụ về tạo một Server Component:
 
@@ -39,26 +38,9 @@ const ClientComponent = ()=>{
 }
 ```
 
-### 💥Server Rendering như thế nào?
+Đọc thêm tại: <https://nextjs.org/docs/app/getting-started/server-and-client-components>
 
-Có 3 cách để một Server Component render: Static, Dynamic và Streaming
-
-#### Static Rendering (Mặc định)
-
-Với cách thức này routes sẽ được render thành file tĩnh trong quá trình bạn build `yarn build`. Dùng cho các nội dung tĩnh ít khi thay đổi.
-
-#### Dynamic Rendering
-
-Routes sẽ render lại mỗi khi có request từ client gửi lên
-
-#### Streaming
-
-Là cách thức cho phép bạn render UI từng phần. Giúp cải thiện hiệu suất tải ứng dụng.
-
-
-Ưu điểm của mỗi loại bạn đọc chi tiết ở trang chủ: https://nextjs.org/docs/app/building-your-application/rendering/server-components
-
-### 💥Khi nào thì dùng loại nào ?
+### 1.2 Khi nào thì dùng loại nào ?
 
 Bạn có thể dựa vào bảng sau để quyết định dùng loại nào
 
@@ -74,252 +56,325 @@ Bạn có thể dựa vào bảng sau để quyết định dùng loại nào
 | Use custom hooks that depend on state, effects, or browser-only APIs         | ❌               | ✅               |
 | Use React Class components                                                   | ❌               | ✅               |
 
-Xem đầy đủ tại: https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns
+Xem đầy đủ tại: <https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns>
 
----
+## 🎯 2. Fetching Data
 
+### 2.1 Với Server Components
 
+Xem tại: <https://nextjs.org/docs/app/getting-started/fetching-data#with-the-fetch-api>
 
-### 💥 Một số lưu ý cần chú ý khi sử dụng các loại Component
+Bạn sử dụng `fetch` được custom sâu cho NextJs để fetch dữ liệu cho server component
 
-**Đối với Server Component**
-
-1. Sử dụng thư viện bên thứ 3
-
-Đọc ở đây: https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#using-third-party-packages-and-providers
-
-2. Sử dụng  Context Providers
-
-Đọc ở đây: https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#using-context-providers
-
-
-**Đối với Client Component**
-
-1. Giữ cho Client component nằm sau ServerComponent
-
-```jsx
-// SearchBar is a Client Component
-import SearchBar from './searchbar'
-// Logo is a Server Component
-import Logo from './logo'
- 
-// Layout is a Server Component by default
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <nav>
-        <Logo />
-        <SearchBar />
-      </nav>
-      <main>{children}</main>
-    </>
-  )
-}
-```
-
-2. Truyền Props từ Server tới Client Components
-
-Bạn có thể fetch API từ Server rồi truyền kết quả xuống cho Client Component sử dụng.
-
-Xem chi tiết: https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#passing-props-from-server-to-client-components-serialization
-
-
-**Đan xen Server Component và Client Component**
-
-Bạn cần biết rõ một điều là trong quá trình request đến response. Code của bạn di chuyển từ server tới client.
-
-Các Server component sẽ được render trước ở máy chủ, bao gồm cả khi bạn nhúng một Client component vào Server component.
-
-Các Client Components sẽ render sau Server component. Do vậy bạn không thể nhúng một Server Component vào một Client Component (nếu có fetch data)
-
-Ví dụ KHÔNG ĐƯỢC
-
-```jsx
-'use client'
- 
-// Bạn không thể import Server Component vào một Client Component.
-import ServerComponent from './Server-Component'
- 
-export default function ClientComponent({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const [count, setCount] = useState(0)
- 
-  return (
-    <>
-      <button onClick={() => setCount(count + 1)}>{count}</button>
-      <ServerComponent />
-    </>
-  )
-}
-```
-
-Nhưng bạn có thể chuyển thành như sau:
-
-Ví dụ ĐƯỢC
-
-```jsx
-'use client'
- 
-import { useState } from 'react'
- 
-export default function ClientComponent({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const [count, setCount] = useState(0)
- 
-  return (
-    <>
-      <button onClick={() => setCount(count + 1)}>{count}</button>
-      {children}
-    </>
-  )
-}
-```
-
-Truyền Server Component đến Client Component dưới dạng `prop children`
-
-```jsx
-// Client Component.
-import ClientComponent from './client-component'
-import ServerComponent from './server-component'
- 
-// Pages in Next.js are Server Components by default
-export default function Page() {
-  return (
-    <ClientComponent>
-      <ServerComponent />
-    </ClientComponent>
-  )
-}
-```
-
-
-## 🎯 DATA Fetching
-
-Mối loại components có cách fetch data khác nhau.
-
-### 💥Fetching Data phía Server
-
-Bạn có thể sử dụng `fetch` với `async/await` rong Server Components, Route Handlers, và Server Actions.
-
-Ví dụ
-
-```tsx
-async function getData(id: number) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-
+```ts
 export default async function Page() {
-  const post = await getData(1);
-
+  const data = await fetch('https://api.vercel.app/blog')
+  const posts = await data.json()
   return (
-    <main>
-      <h1>{post.title}</h1>
-    </main>
-  );
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
 }
 ```
 
-Khi bạn dùng hàm `fetch` mặc định nó được NextJS hỗ trợ cache lại response.
+Xem thêm về fetch() API: <https://nextjs.org/docs/app/api-reference/functions/fetch>
 
-Ngoài cách sử dụng hàm `fetch` bạn cũng có thể sử dụng các hình thức fetch API khác: Axios, ORM client, databse, CMS...
+### 2.2 Với Client Components
 
-Bạn có thể cache với React Cache như sau:
+Xem tại: <https://nextjs.org/docs/app/getting-started/fetching-data#streaming-data-with-the-use-hook>
 
-```ts
-import { cache } from "react";
+### 2.3 Streaming
 
-export const getPost = cache(async (id: string) => {
-  const response = await axios.get(
-    `https://jsonplaceholder.typicode.com/posts/${id}`
-  );
-  return response.data;
-});
-```
+#### 2.3.1 Loading
 
-`getPost` có thể được gọi nhiều lần nhưng nó chỉ gửi request đúng 1 lần. Vì đã được cache.
+<https://nextjs.org/docs/app/getting-started/fetching-data#with-loadingjs>
 
-Để làm mới cache, bạn cần cấu hình thêm `revalidate` ở mỗi file `layout.tsx` hoặc `page.tsx`.
+#### 2.3.2 Suspense
 
-```tsx
-import { getItem } from "@/utils/get-item";
-
-export const revalidate = 3600; // revalidate the data at most every hour
-
-export default async function Page({
-  params: { id },
-}: {
-  params: { id: string };
-}) {
-  const item = await getItem(id);
-  // ...
-}
-```
-
-> Lưu ý: `SWR`, `React Query` được viết dưới dụng HOOK nên bạn không thể sử dụng nó trong Server Component.
-
-### 💥Fetching Data phía Client
-
-Với Client Component bạn có thể fetch data từ 2 nguồn:
-
-- API được tạo ra bởi: Route Handler
-- API từ nguồn bên ngoài
-
-Sử dụng `useEffect` hoặc `SWR`, `React Query`
-
-LƯU Ý QUAN TRỌNG:
-
-> Khuyến nghị Bạn không sử dụng hàm `fetch` trong Client component khi dùng với `useEffect` hoặc `SWR`, `React Query`. Thay vào đó dùng `axios`
-
-
-> Nếu bạn cần truyền các thông tin nhạy cảm vào request như token thì bạn nên gọi gián tiếp thông qua `Route Handler`
+<https://nextjs.org/docs/app/getting-started/fetching-data#with-suspense>
 
 ---
 
-### 💥 CACHE DATA
+## 🎯 3. Caching
 
-Với NextJS App router mặc định DATA được cache khi sử dụng với `fetch`.
+Next.js 15 sử dụng bốn loại cache chính:
 
-Để làm MỚI cache bạn cấu hình `revalidate` như sau:
+- **Request Memoization**: Lưu trữ kết quả của các yêu cầu `fetch` trong cùng một chu kỳ render.
+- **Data Cache**: Lưu trữ dữ liệu từ các yêu cầu `fetch` trên đĩa hoặc bộ nhớ để tái sử dụng giữa các request.
+- **Full Route Cache**: Lưu trữ HTML và React Server Components (RSC) Payload cho các route tĩnh tại thời điểm build.
+- **Router Cache**: Lưu trữ trạng thái điều hướng phía client để cải thiện trải nghiệm người dùng.
 
-```ts
-fetch("https://...", { next: { revalidate: 3600 } });
+### 3.1. Data Cache
+
+Data Cache lưu trữ kết quả của các yêu cầu `fetch` trên đĩa (thư mục `.next/cache`) hoặc trong hệ thống cache tùy chỉnh, để tái sử dụng giữa các request khác nhau.
+
+#### Cách hoạt động
+
+- Mặc định, các yêu cầu `fetch` với `cache: 'force-cache'` hoặc không chỉ định tùy chọn cache sẽ được lưu trữ.
+- Cache có thể được làm mới thông qua **revalidation**.
+
+#### Ví dụ: Data Cache
+
+```typescript
+interface Data {
+  id: number;
+  title: string;
+}
+
+const DataPage = async () => {
+  const res = await fetch('https://api.example.com/data', {
+    cache: 'force-cache', // Lưu trữ dữ liệu vĩnh viễn cho đến khi được làm mới
+  });
+  const data: Data[] = await res.json();
+  return (
+    <div>
+      <h1>Data Cache</h1>
+      <ul>
+        {data.map((item) => (
+          <li key={item.id}>{item.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default DataPage;
 ```
 
-Hoặc thêm biến revalidate ở đầu mỗi file `layout.tsx` hoặc cụ thể trong các `page.tsx`
+#### Tùy chỉnh Data Cache
 
-```ts
-export const revalidate = 3600; // revalidate at most every hour
+- **`cache: 'force-cache'`**: Lưu trữ dữ liệu vĩnh viễn (mặc định cho SSG).
+- **`cache: 'no-store'`**: Không lưu trữ, luôn gửi yêu cầu mới (phù hợp với dữ liệu thay đổi liên tục).
+- **`next: { revalidate: number }`**: Làm mới cache sau một khoảng thời gian (tính bằng giây).
+- **`next: { tags: string[] }`**: Gắn thẻ cho cache để làm mới theo nhóm.
+
+### 3.2. Request Memoization
+
+Request Memoization lưu trữ kết quả của các yêu cầu `fetch` trong cùng một chu kỳ render, giúp tránh gửi nhiều yêu cầu trùng lặp đến cùng một tài nguyên.
+
+#### Cách hoạt động
+
+- Áp dụng cho các yêu cầu `fetch` trong Server Components
+- Cache tồn tại trong bộ nhớ (in-memory) và chỉ có hiệu lực trong một lần render.
+
+#### Ví dụ: Request Memoization
+
+```typescript
+const fetchData = async () => {
+  const res = await fetch('https://api.example.com/data', { cache: 'force-cache' });
+  return res.json();
+};
+
+const HomePage = async () => {
+  const data1 = await fetchData();
+  const data2 = await fetchData(); // Không gửi yêu cầu mới, sử dụng kết quả từ cache
+  return (
+    <div>
+      <h1>Request Memoization</h1>
+      <pre>{JSON.stringify(data1)}</pre>
+    </div>
+  );
+};
+
+export default HomePage;
 ```
 
+#### Lưu ý
 
-## 🎯 Error Handling
+- Chỉ hoạt động với `fetch`, không áp dụng cho các thư viện HTTP client khác (như `axios`).
+- Cache tự động bị xóa sau mỗi chu kỳ render.
 
-Custom lại các trang hiển thị lỗi
+### 3.3. Full Route Cache
 
-Xem doc: https://nextjs.org/docs/app/building-your-application/routing/error-handling
+Full Route Cache lưu trữ HTML và RSC Payload của các route tĩnh tại thời điểm build, giúp phục vụ nội dung nhanh chóng mà không cần render lại.
 
+#### Cách hoạt động
 
+- Áp dụng cho các route sử dụng **Static Rendering** (tạo tại thời điểm build).
+- Nội dung được lưu trong thư mục `.next/` và được phục vụ trực tiếp.
 
-## 🎯 Loading UI
+#### Ví dụ: Full Route Cache
 
-Xem doc: https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming
+```typescript
 
+export const dynamic = 'force-static'; // Buộc route này sử dụng Static Rendering
 
-## 🎯 Middleware
+const AboutPage= async () => {
+  const res = await fetch('https://api.example.com/about', { cache: 'force-cache' });
+  const data = await res.json();
+  return (
+    <div>
+      <h1>Giới thiệu</h1>
+      <p>{data.description}</p>
+    </div>
+  );
+};
 
-Xem doc: https://nextjs.org/docs/app/building-your-application/routing/middleware
+export default AboutPage;
+```
+
+#### Lưu ý
+
+- Sử dụng `dynamic = 'force-dynamic'` để vô hiệu hóa Full Route Cache nếu cần render động.
+- Kết hợp với Incremental Static Regeneration (ISR) để làm mới cache.
+
+### 3.4. Router Cache
+
+Router Cache lưu trữ trạng thái điều hướng và RSC Payload phía client, giúp cải thiện hiệu suất khi người dùng điều hướng giữa các trang.
+
+#### Cách hoạt động
+
+- Lưu trữ trong bộ nhớ trình duyệt (client-side).
+- Giảm số lượng yêu cầu gửi đến máy chủ khi điều hướng.
+
+#### Tùy chỉnh Router Cache
+
+- Điều chỉnh thời gian lưu trữ thông qua `next.config.ts`.
+
+#### Ví dụ: Cấu hình Router Cache
+
+```typescript
+// next.config.ts
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    routerCache: {
+      maxInactiveAge: 60 * 60 * 1000, // Lưu cache trong 1 giờ
+    },
+  },
+};
+
+module.exports = nextConfig;
+```
+
+## 🎯 4. Revalidating
+
+Để làm tươi cache có 3 cách:
+
+### 4.1 `next.revalidate`
+
+```js
+export default async function Page() {
+  const data = await fetch('https://...', { next: { revalidate: 3600 } })
+}
+```
+
+### 4.2 `revalidateTag`
+
+Đầu tiên bạn định nghĩa `tag` trong khi `fetch`
+```
+export async function getUserById(id: string) {
+  const data = await fetch(`https://...`, {
+    next: {
+      tags: ['user'],
+    },
+  })
+}
+```
+Sau đó gọi nó trong Server Action
+
+```js
+import { revalidateTag } from 'next/cache'
+//server action
+export async function updateUser(id: string) {
+  // Mutate data
+  revalidateTag('user')
+}
+```
+
+hoặc  Route Handler 
+
+```js
+//app/api/revalidate/route.ts
+import type { NextRequest } from 'next/server'
+import { revalidateTag } from 'next/cache'
+ 
+export async function GET(request: NextRequest) {
+  const tag = request.nextUrl.searchParams.get('tag')
+  revalidateTag(tag)
+  return Response.json({ revalidated: true, now: Date.now() })
+}
+```
+
+### 4.3 `revalidatePath`
+
+cách này dùng trong 
+
+- `Route Handler`
+
+```js
+import { revalidatePath } from 'next/cache'
+import type { NextRequest } from 'next/server'
+ 
+export async function GET(request: NextRequest) {
+  const path = request.nextUrl.searchParams.get('path')
+ 
+  if (path) {
+    revalidatePath(path)
+    return Response.json({ revalidated: true, now: Date.now() })
+  }
+ 
+  return Response.json({
+    revalidated: false,
+    now: Date.now(),
+    message: 'Missing path to revalidate',
+  })
+}
+```
+
+- hoặc Server Action:
+
+```js
+//app/actions.ts
+'use server'
+ 
+import { revalidatePath } from 'next/cache'
+ 
+export default async function submit() {
+  await submitForm()
+  revalidatePath('/')
+}
+```
+## 🎯 5. No Caching
+
+### 5.1 Phạm vi Request API với `fetch`
+
+```typescript
+const AboutPage= async () => {
+  const res = await fetch('https://api.example.com/about', { cache: 'no-store' });
+  const data = await res.json();
+  return (
+    <div>
+      <h1>Giới thiệu</h1>
+      <p>{data.description}</p>
+    </div>
+  );
+};
+
+export default AboutPage;
+```
+
+### 5.2 Full Route với Sengment Config
+
+Xem thêm tại: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
+
+```typescript
+
+export const dynamic = 'force-dynamic'; 
+
+const AboutPage= async () => {
+  const res = await fetch('https://api.example.com/about', { cache: 'no-store' });
+  const data = await res.json();
+  return (
+    <div>
+      <h1>Giới thiệu</h1>
+      <p>{data.description}</p>
+    </div>
+  );
+};
+
+export default AboutPage;
+```
