@@ -1,7 +1,6 @@
 import Link from "next/link"
 
 const Header = () => {
-    console.log('header rendered');
   return (
     <header className="w-full h-16 bg-indigo-600 flex items-center justify-center">
         <div className="container mx-auto">

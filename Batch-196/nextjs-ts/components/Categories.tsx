@@ -2,7 +2,7 @@
 import { use } from 'react'
 //client component
 type Categories = {
-    category_id: string;
+    _id: string;
     category_name: string;
     slug: string;
 }
@@ -25,17 +25,17 @@ const Categories = ({
     const cate = use(data)
     console.log('cate', cate)
   return (
-    <div>
+    <>
         <ul>
             {
-              cate.data.map((category: {category_id: string, category_name: string}) => {
-                return <li key={category.category_id}>
+              cate.data.map((category: {_id: string, category_name: string}) => {
+                return <li key={category._id}>
                   {category.category_name}
                 </li>
               })
             }
           </ul>
-    </div>
+    </>
   )
 }
 

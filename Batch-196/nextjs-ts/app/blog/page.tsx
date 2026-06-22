@@ -1,6 +1,7 @@
 //server component
 
 import Categories from "@/components/Categories"
+import { Metadata } from "next"
 import { Suspense } from "react"
 
 //hàm fetch data từ API backend
@@ -9,6 +10,11 @@ const getCategories = async () => {
   return res.json()
 }
 
+export const metadata: Metadata = {
+  title: 'Blog page',
+  description: '...',
+}
+ 
 
 const BlogPage = () => {
 
